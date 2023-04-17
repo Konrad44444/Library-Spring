@@ -12,8 +12,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Setter
 @Getter
 @Entity
@@ -31,4 +33,11 @@ public class Loan {
 
     private LocalDate dateOfLoan;
     private LocalDate dateOfReturn;
+
+    public Loan(List<Book> books, User user, LocalDate dateOfLoan) {
+        this.books = books;
+        this.user = user;
+        this.dateOfLoan = dateOfLoan;
+        this.dateOfReturn = dateOfLoan.plusMonths(1);
+    }
 }
