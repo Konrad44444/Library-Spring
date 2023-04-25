@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,10 +34,10 @@ public class Book {
     @JoinColumn(name = "loan_id")
     private Loan loan;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(name = "book_category",
-        joinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
     
     private String title;

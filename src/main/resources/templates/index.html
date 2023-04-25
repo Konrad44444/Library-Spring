@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html 
+lang="pl"
+xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteka</title>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="login">
+            
+            <form th:object="${user}" th:action="@{/login}" method="post">
+                <div class="form-head">
+                    <h2>Logowanie</h2>
+                </div>
+
+                <div class="form-body">
+                    <label>Login: </label>
+                    <input type="text" th:field="*{login}"> <br>
+
+                    <label>Hasło: </label>
+                    <input type="password" th:field="*{password}"> <br>
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit">Zaloguj</button>
+
+                    <a th:href="@{/register}" class="button">Rejestracja</a>
+                </div>
+            </form>
+        
+        </div>
+    
+    </div>    
+</body>
+</html>

@@ -30,11 +30,11 @@ public class BootstrapData implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        if(bookRepository.count() != 0 || authorRepository.count() != 0) {
-            bookRepository.deleteAll();
-            authorRepository.deleteAll();
-            loadBooksAndAuthors();
-        }
+        //deleting and saving data for debug purposes
+        //bookRepository.deleteAll();
+        //authorRepository.deleteAll();
+        //loadBooksAndAuthors();
+
         System.out.println("--- Books and Authors data loaded. ---");
         
     }
