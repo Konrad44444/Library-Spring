@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import database.project.library.commands.UserCommand;
 import database.project.library.converters.UserCommandToUser;
+import database.project.library.model.Active;
 import database.project.library.model.User;
 import database.project.library.repositories.ActiveRepository;
 import database.project.library.repositories.UserRepository;
@@ -58,5 +59,27 @@ public class LoginServiceImpl implements LoginService{
         return userPassword.equals(passwordFromDB);
     }
 
+
+    @Override
+    public void setActiveUser(UserCommand userCommand) {
+        Optional<User> activeUser = userRepository.findByLogin(toUser.convert(userCommand).getLogin());
+
+        Active active = new Active();
+        active.setNumber(activeUser.get().getId());
+
+        activeRepository.save(active);
+    }
+
+    @Override
+    public Boolean checkIfUserIsLibrarian(UserCommand userCommand) {
+        Optional<User> activeUser = userRepository.findByLogin(toUser.convert(userCommand).getLogin());
+
+        return activeUser.get().getIsLibrarian();
+    }
+
+    @Override
+    public void logout() {
+        activeRepository.deleteAll();
+    }
     
 }
