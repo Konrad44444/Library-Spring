@@ -41,7 +41,7 @@ public class RegisterController {
             modelAndView.setViewName("index");
             return modelAndView;
         } else {
-            modelAndView.addObject("message", "Użytkownik o podanym loginie istnieje");
+            modelAndView.addObject("message", "Użytkownik o podanym loginie istnieje!");
             modelAndView.setViewName("register");
             return modelAndView;
         }

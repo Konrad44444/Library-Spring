@@ -39,6 +39,10 @@ public class Book {
         joinColumns = @JoinColumn(name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
     
     private String title;
 
