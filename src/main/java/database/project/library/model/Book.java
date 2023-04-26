@@ -2,6 +2,7 @@ package database.project.library.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -64,5 +65,11 @@ public class Book {
         this.title = title;
         this.available = available;
         this.categories.add(category);
+    }
+
+    public String categoriesToString() {
+       return categories.stream()
+            .map(Category::getName)
+            .collect(Collectors.joining(" "));
     }
 }

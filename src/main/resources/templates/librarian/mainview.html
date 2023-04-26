@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html 
+    lang="pl"
+    xmlns:th="http://www.thymeleaf.org"
+    >
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +10,49 @@
     <title>Biblioteka - bibliotekarz</title>
 </head>
 <body>
-    <h1>Widok bibliotekarza</h1>
+    <div class="container">
+        <div class="header">
+            <a href="" class="button">Książki</a>
+            <a href="" class="button">Wypożyczenia</a>
+            <a href="" class="button">Dodaj książkę</a>
+            <a href="" class="button">Mój profil</a>
+            <a th:href="@{/logout}" class="button">Wyloguj się</a>
+        </div>
+
+        <div class="book-list">
+            <table class="books">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tytuł</th>
+                        <th>Autor</th>
+                        <th>Kategorie</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="book : ${books}">
+                        <td th:text="${book.id}">213</td>
+                        <td th:text="${book.title}">tytul</td>
+                        <td th:text="${book.author.getFirstName()} + ${book.author.getLastName()}">autor</td>
+                        <td th:text="${book.categoriesToString()}">kategorie</td>
+                        <td>
+                            <a href="" class="button">Edytuj</a>
+                        </td>
+                        <td>
+                            <a href="" class="button">Usuń</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <h2 class="copyright">Copyright © 2023 Konrad Warzecha</h2>
+        </div>
+
+    </div>
 </body>
 </html>

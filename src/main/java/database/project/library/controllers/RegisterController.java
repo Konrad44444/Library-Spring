@@ -12,6 +12,13 @@ import database.project.library.services.RegisterService;
 
 @Controller
 public class RegisterController {
+    private static final String REGISTER = "register";
+    private static final String USER = "user";
+    private static final String MESSAGE = "message";
+    private static final String INDEX = "index";
+    private static final String REGISTRATION_GOOD = "Rejestracja przebiegła pomyślnie!";
+    private static final String REGISTRATION_BAD_LOGIN_EXISTS = "Użytkownik o podanym loginie istnieje!";
+
     private final RegisterService registerService;
 
     public RegisterController(RegisterService registerService) {
@@ -21,9 +28,9 @@ public class RegisterController {
 
     @GetMapping({"/register", "/register/"})
     public String showRegisterPage(Model model) {
-        model.addAttribute("user", new UserCommand());
+        model.addAttribute(USER, new UserCommand());
 
-        return "register.html";
+        return REGISTER;
     }
 
     @PostMapping("/register/new")
@@ -34,15 +41,15 @@ public class RegisterController {
 
         ModelAndView modelAndView = new ModelAndView();
 
-        modelAndView.addObject("user", new UserCommand());
+        modelAndView.addObject(USER, new UserCommand());
         
         if(Boolean.TRUE.equals(isRegisterGood)) {
-            modelAndView.addObject("message", "Rejestracja przebiegła pomyślnie!");
-            modelAndView.setViewName("index");
+            modelAndView.addObject(MESSAGE, REGISTRATION_GOOD);
+            modelAndView.setViewName(INDEX);
             return modelAndView;
         } else {
-            modelAndView.addObject("message", "Użytkownik o podanym loginie istnieje!");
-            modelAndView.setViewName("register");
+            modelAndView.addObject(MESSAGE, REGISTRATION_BAD_LOGIN_EXISTS);
+            modelAndView.setViewName(REGISTER);
             return modelAndView;
         }
         
