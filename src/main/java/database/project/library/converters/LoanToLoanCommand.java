@@ -10,12 +10,9 @@ import lombok.Synchronized;
 
 @Component
 public class LoanToLoanCommand implements Converter<Loan, LoanCommand> {
-    
-    private final UserToUserCommand toUserCommand;
     private final BookToBookCommand toBookCommand;
 
-    public LoanToLoanCommand(UserToUserCommand toUserCommand, BookToBookCommand toBookCommand) {
-        this.toUserCommand = toUserCommand;
+    public LoanToLoanCommand(BookToBookCommand toBookCommand) {
         this.toBookCommand = toBookCommand;
     }
 
@@ -31,7 +28,6 @@ public class LoanToLoanCommand implements Converter<Loan, LoanCommand> {
         loanCommand.setId(source.getId());
         loanCommand.setDateOfLoan(source.getDateOfLoan());
         loanCommand.setDateOfReturn(source.getDateOfReturn());
-        loanCommand.setUser(toUserCommand.convert(source.getUser()));
 
         if(source.getBooks() != null && source.getBooks().size() > 0) {
             source.getBooks().forEach(

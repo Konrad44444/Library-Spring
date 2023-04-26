@@ -2,42 +2,48 @@
 <html 
     lang="pl"
     xmlns:th="http://www.thymeleaf.org"
->
+    >
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteka</title>
+    <title>Rejestracja</title>
 </head>
 <body>
     <div class="container">
-
-        <h3 class="message" th:text="${message}"></h3>
         
-        <div class="login">
-            
-            <form th:object="${user}" th:action="@{/login}" method="post">
+        <h3 class="message" th:text="${message}"></h3>
+
+        <div class="register">
+            <form th:object="${user}" th:action="@{/register/new}" method="post">
                 <div class="form-head">
-                    <h2>Logowanie</h2>
+                    <h1>Rejestracja</h1>
                 </div>
 
                 <div class="form-body">
+                    <input type="hidden" th:field="*{id}"/>
+
                     <label>Login </label>
                     <input type="text" th:field="*{login}"> <br>
 
                     <label>Hasło </label>
                     <input type="password" th:field="*{password}"> <br>
+
+                    <label>Imię </label>
+                    <input type="text" th:field="*{firstName}"> <br>
+
+                    <label>Nazwisko </label>
+                    <input type="text" th:field="*{lastName}"> <br>
                 </div>
 
                 <div class="form-foot">
-                    <button type="submit">Zaloguj</button>
-
-                    <a th:href="@{/register}" class="button">Rejestracja</a>
+                    <button type="submit">Zarejestruj</button>
+                    <a th:href="@{/}" class="button">Anuluj</a>
                 </div>
             </form>
-        
         </div>
     
-    </div>    
+    </div>
+    
 </body>
 </html>

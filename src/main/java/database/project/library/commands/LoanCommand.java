@@ -14,7 +14,6 @@ import lombok.Setter;
 public class LoanCommand {
     private Long id;
     private List<BookCommand> books = new ArrayList<>();
-    private UserCommand user;
     private LocalDate dateOfLoan;
     private LocalDate dateOfReturn;
 }
