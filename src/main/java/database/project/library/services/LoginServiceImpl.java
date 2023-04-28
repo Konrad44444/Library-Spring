@@ -1,5 +1,6 @@
 package database.project.library.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -76,6 +77,20 @@ public class LoginServiceImpl implements LoginService{
 
         return activeUser.get().getIsLibrarian();
     }
+
+    @Override
+    public Optional<User> getCurrentUser() {
+        Iterable<Active> activeIterable = activeRepository.findAll();
+
+        if (activeIterable.iterator().hasNext()) {
+            Active active = activeIterable.iterator().next();
+
+            return userRepository.findById(active.getNumber());
+        } else {
+            return Optional.empty();
+        }
+    }
+
 
     @Override
     public void logout() {

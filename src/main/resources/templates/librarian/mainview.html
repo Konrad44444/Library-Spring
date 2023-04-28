@@ -20,13 +20,13 @@
         </div>
 
         <div class="book-list">
-            <table class="books">
+            <table class="books-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Tytuł</th>
                         <th>Autor</th>
                         <th>Kategorie</th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -34,10 +34,11 @@
 
                 <tbody>
                     <tr th:each="book : ${books}">
-                        <td th:text="${book.id}">213</td>
                         <td th:text="${book.title}">tytul</td>
                         <td th:text="${book.author.getFirstName()} + ${book.author.getLastName()}">autor</td>
                         <td th:text="${book.categoriesToString()}">kategorie</td>
+                        <td th:text="${book.available}">(nie)dostępna</td> 
+                        <!-- ^ zwraca true albo false TODO: ładnie wyświetlić -->
                         <td>
                             <a href="" class="button">Edytuj</a>
                         </td>

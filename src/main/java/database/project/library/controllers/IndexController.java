@@ -1,6 +1,6 @@
 package database.project.library.controllers;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import database.project.library.commands.UserCommand;
-import database.project.library.model.Book;
-import database.project.library.services.BookService;
+import database.project.library.model.User;
 import database.project.library.services.LoginService;
 
 
@@ -22,22 +21,23 @@ public class IndexController {
     private static final String USER = "user";
     private static final String NO_LOGIN_USER = "Brak użytkownika o podanym loginie!";
     private static final String PASSWORD_INCORRECT = "Hasło niepoprawne!";
-    private static final String LIBRARIAN_VIEW_PATH = "/librarian/mainview";
-    private static final String USER_VIEW_PATH = "/user/mainview";
-    private static final String BOOKS = "books";
+    private static final String REDIRECT_MAIN_VIEW = "redirect:/mainview";
 
 
     private final LoginService loginService;
-    private final BookService bookService;
 
-    public IndexController(LoginService loginService, BookService bookService) {
+    public IndexController(LoginService loginService) {
         this.loginService = loginService;
-        this.bookService = bookService;
     }
 
 
     @GetMapping({"", "/", "/index", "/index.html"})
     public String getIndexPage(Model model) {
+        Optional<User> logged = loginService.getCurrentUser();
+
+        // if user didn't logged out redirect to main view
+        if(logged.isPresent()) return REDIRECT_MAIN_VIEW;
+
         model.addAttribute(USER, new UserCommand());
 
         return INDEX;
@@ -61,20 +61,11 @@ public class IndexController {
             Boolean isPasswordGood = loginService.checkPassword(userCommand);
 
             if(Boolean.TRUE.equals(isPasswordGood)) {    //password correct - user logged in
-                // pass list of books to view
-                List<Book> books = bookService.getAllBooks();
-                modelAndView.addObject(BOOKS, books);
-
                 // set logged user as active
                 loginService.setActiveUser(userCommand);
 
-                // check if user is librarian or not and return proper view
-                Boolean userIsLibrarian = loginService.checkIfUserIsLibrarian(userCommand);
-                
-                if(Boolean.TRUE.equals(userIsLibrarian))
-                    modelAndView.setViewName(LIBRARIAN_VIEW_PATH);
-                else 
-                    modelAndView.setViewName(USER_VIEW_PATH);
+                // redirect to book controller - list of books is the main view
+                modelAndView.setViewName(REDIRECT_MAIN_VIEW);
 
                 return modelAndView;
                 
