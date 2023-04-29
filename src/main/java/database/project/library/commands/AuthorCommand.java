@@ -11,4 +11,11 @@ public class AuthorCommand {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @Override
+    public String toString() {
+        return this.firstName + " " + this.lastName;
+    }
+
+    
 }

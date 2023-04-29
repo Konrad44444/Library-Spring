@@ -12,9 +12,9 @@
 <body>
     <div class="container">
         <div class="header">
-            <a href="" class="button">Książki</a>
+            <a th:href="@{/mainview}" class="button">Książki</a>
             <a href="" class="button">Wypożyczenia</a>
-            <a href="" class="button">Dodaj książkę</a>
+            <a th:href="@{/addbook}" class="button">Dodaj książkę</a>
             <a href="" class="button">Mój profil</a>
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
@@ -35,8 +35,8 @@
                 <tbody>
                     <tr th:each="book : ${books}">
                         <td th:text="${book.title}">tytul</td>
-                        <td th:text="${book.author.getFirstName()} + ${book.author.getLastName()}">autor</td>
-                        <td th:text="${book.categoriesToString()}">kategorie</td>
+                        <td th:text="${book.author.getFirstName()} + ' ' + ${book.author.getLastName()}">autor</td>
+                        <td th:text="${book.category.getName()}">kategorie</td>
                         <td th:text="${book.available}">(nie)dostępna</td> 
                         <!-- ^ zwraca true albo false TODO: ładnie wyświetlić -->
                         <td>

@@ -31,12 +31,7 @@ public class BookToBookCommand implements Converter<Book, BookCommand> {
         bookCommand.setAuthor(toAuthorCommand.convert(source.getAuthor()));
         bookCommand.setTitle(source.getTitle());
         bookCommand.setAvailable(source.getAvailable());
-
-        if(source.getCategories() != null && source.getCategories().size() > 0) {
-            source.getCategories().forEach(
-                category -> bookCommand.getCategories().add(toCategoryCommand.convert(category))
-            );
-        }
+        bookCommand.setCategory(toCategoryCommand.convert(source.getCategory()));
 
         return bookCommand;
     }

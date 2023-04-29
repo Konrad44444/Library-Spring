@@ -10,4 +10,10 @@ import lombok.Setter;
 public class CategoryCommand {
     private Long id;
     private String name;
+    
+    @Override
+    public String toString() {
+        return String.valueOf(id) + " " + this.name;
+    }
+
 }

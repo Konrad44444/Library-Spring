@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Component;
 
 //loaded data once then comment
-//@Component
+// @Component
 public class InitializeData {
 
     @Autowired

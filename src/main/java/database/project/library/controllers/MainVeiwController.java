@@ -36,7 +36,7 @@ public class MainVeiwController {
         model.addAttribute(BOOKS, books);
         
         // get current user
-        User user = loginService.getCurrentUser().get();
+        User user = loginService.getCurrentUser().orElseThrow(RuntimeException::new);
 
         // check if user is librarian or not and return proper view
         Boolean userIsLibrarian = loginService.checkIfUserIsLibrarian(toUserCommand.convert(user));
