@@ -11,7 +11,7 @@
         <div class="header">
             <a th:href="@{/mainview}" class="button">Książki</a>
             <a href="" class="button">Moje wypożyczenia</a>
-            <a href="" class="button">Koszyk</a>
+            <a th:href="@{/showbasket}" class="button">Koszyk</a>
             <a href="" class="button">Mój profil</a>
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
@@ -34,9 +34,9 @@
                         <td th:text="${book.author.getFirstName()} + ${book.author.getLastName()}">autor</td>
                         <td th:text="${book.category.getName()}">kategorie</td>
                         <td th:text="${book.available}">(nie)dostępna</td> 
-                        <!-- ^ zwraca true albo false TODO: ładnie wyświetlić -->
                         <td>
-                            <a href="">Dodaj do koszyka</a>
+                            <a th:href="@{'/addtobasket/' + ${book.id}}">Dodaj do koszyka</a>
+                            <!-- TODO: disable button is status is 'zarezerwowana' or 'wypożyczona' -->
                         </td>
                     </tr>
                 </tbody>

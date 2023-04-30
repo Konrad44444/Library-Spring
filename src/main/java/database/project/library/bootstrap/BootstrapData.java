@@ -11,6 +11,7 @@ import database.project.library.model.Author;
 import database.project.library.model.Book;
 import database.project.library.model.Category;
 import database.project.library.repositories.AuthorRepository;
+import database.project.library.repositories.BasketRepository;
 import database.project.library.repositories.BookRepository;
 import database.project.library.repositories.CategoryRepository;
 
@@ -19,21 +20,23 @@ public class BootstrapData implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final BasketRepository basketRepository;
 
-
-    public BootstrapData(CategoryRepository categoryRepository, AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootstrapData(CategoryRepository categoryRepository, AuthorRepository authorRepository, BookRepository bookRepository, BasketRepository basketRepository) {
         this.categoryRepository = categoryRepository;
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.basketRepository = basketRepository;
     }
 
 
     @Override
     public void run(String... args) throws Exception {
         //deleting and saving data for debug purposes
-        // bookRepository.deleteAll();
-        // authorRepository.deleteAll();
-        // loadBooksAndAuthors();
+        basketRepository.deleteAll();
+        bookRepository.deleteAll();
+        authorRepository.deleteAll();
+        loadBooksAndAuthors();
 
         System.out.println("--- Books and Authors data loaded. ---");
         

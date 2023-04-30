@@ -23,13 +23,6 @@ import database.project.library.repositories.CategoryRepository;
 
 @Service
 public class BookServiceImpl implements BookService{
-    private static final String EMPTY_STRING = "";
-    private static final String NO_AUTHOR = "Author not found!";
-    private static final String NO_CATEGORY = "Category not found!";
-    private static final String NO_BOOK_FOUND = "Book not found! Check ID.";
-    private static final String INVALID_ID = "Invalid ID!";
-    private static final String AVAILABLE = "Dostepna";
-
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final CategoryRepository categoryRepository;
@@ -64,13 +57,13 @@ public class BookServiceImpl implements BookService{
         // check wheather it is new author or category to save
         Author author;
 
-        if(authorCommand.getFirstName().equals(EMPTY_STRING) && authorCommand.getLastName().equals(EMPTY_STRING)) {
+        if(authorCommand.getFirstName().equals(Util.EMPTY_STRING) && authorCommand.getLastName().equals(Util.EMPTY_STRING)) {
 
             // both name and surname of author is empty -> use author from select
             Optional<Author> authorOptional = authorRepository.findById(bookCommand.getAuthor().getId());
 
             if(authorOptional.isPresent()) author = authorOptional.get();
-            else throw new RuntimeException(NO_AUTHOR);
+            else throw new RuntimeException(Util.NO_AUTHOR_FOUND);
 
         } else {
             
@@ -80,13 +73,13 @@ public class BookServiceImpl implements BookService{
         }
 
         Category category;
-        if(categoryCommand.getName().equals(EMPTY_STRING)) {
+        if(categoryCommand.getName().equals(Util.EMPTY_STRING)) {
 
             // category name is empty -> use category from select
             Optional<Category> categoryOptional = categoryRepository.findById(bookCommand.getCategory().getId());
 
             if(categoryOptional.isPresent()) category = categoryOptional.get();
-            else throw new RuntimeException(NO_CATEGORY);
+            else throw new RuntimeException(Util.NO_CATEGORY_FOUND);
 
         } else {
 
@@ -96,7 +89,7 @@ public class BookServiceImpl implements BookService{
         }
 
         Book book = toBook.convert(bookCommand);
-        book.setAvailable(AVAILABLE);
+        book.setAvailable(Util.AVAILABLE);
         book.setAuthor(author);
         book.setCategory(category);
 
@@ -112,10 +105,10 @@ public class BookServiceImpl implements BookService{
             if(bookOptional.isPresent()) 
                 return toBookCommand.convert(bookOptional.get());
             else 
-                throw new RuntimeException(NO_BOOK_FOUND);
+                throw new RuntimeException(Util.NO_BOOK_FOUND);
             
         } else
-            throw new NumberFormatException(INVALID_ID);
+            throw new NumberFormatException(Util.INVALID_ID);
     }
     
     @Override
@@ -125,7 +118,7 @@ public class BookServiceImpl implements BookService{
         Optional<Book> bookOptional = bookRepository.findById(bookCommand.getId());
 
         if(!bookOptional.isPresent()) 
-            throw new RuntimeException(NO_BOOK_FOUND);
+            throw new RuntimeException(Util.NO_BOOK_FOUND);
 
         Book book = bookOptional.get();
         
@@ -151,10 +144,10 @@ public class BookServiceImpl implements BookService{
             if(bookOptional.isPresent()) 
                 bookRepository.deleteById(Long.parseLong(id));
             else 
-                throw new RuntimeException(NO_BOOK_FOUND);
+                throw new RuntimeException(Util.NO_BOOK_FOUND);
             
         } else
-            throw new NumberFormatException(INVALID_ID);
+            throw new NumberFormatException(Util.INVALID_ID);
     }
 
     

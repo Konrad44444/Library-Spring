@@ -32,6 +32,7 @@ public class RegisterServiceImpl implements RegisterService{
         if(userFromDB.isPresent()) return false;
 
         // if not save user and return true
+        user.setBasket(null);
         userRepository.save(user);
 
         return true;
