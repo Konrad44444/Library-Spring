@@ -48,18 +48,18 @@ public class BootstrapData implements CommandLineRunner {
 
 
         Author GO = new Author("George", "Orwell");
-        Book FZ = new Book(GO, "Folwark zwierzecy", true, classic);
+        Book FZ = new Book(GO, "Folwark zwierzecy", "Dostepna", classic);
 
         authorRepository.save(GO);
         bookRepository.save(FZ);
 
         Author KK = new Author("Ken", "Kesey");
-        Book LNKG = new Book(KK, "Lot nad kukulczym gniazdem", true, classic);
+        Book LNKG = new Book(KK, "Lot nad kukulczym gniazdem", "Dostepna", classic);
 
         authorRepository.save(KK);
         bookRepository.save(LNKG);
 
-        Book R1984 = new Book(GO, "Rok 1984", true, classic);
+        Book R1984 = new Book(GO, "Rok 1984", "Dostepna", classic);
         bookRepository.save(R1984);
 
         System.out.println("--- Books and Authors data loading... ---");

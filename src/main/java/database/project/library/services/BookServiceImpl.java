@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import database.project.library.commands.AuthorCommand;
 import database.project.library.commands.BookCommand;
 import database.project.library.commands.CategoryCommand;
 import database.project.library.converters.AuthorCommandToAuthor;
 import database.project.library.converters.BookCommandToBook;
+import database.project.library.converters.BookToBookCommand;
 import database.project.library.converters.CategoryCommandToCategory;
 import database.project.library.model.Author;
 import database.project.library.model.Book;
@@ -24,6 +26,9 @@ public class BookServiceImpl implements BookService{
     private static final String EMPTY_STRING = "";
     private static final String NO_AUTHOR = "Author not found!";
     private static final String NO_CATEGORY = "Category not found!";
+    private static final String NO_BOOK_FOUND = "Book not found! Check ID.";
+    private static final String INVALID_ID = "Invalid ID!";
+    private static final String AVAILABLE = "Dostepna";
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -31,15 +36,18 @@ public class BookServiceImpl implements BookService{
     private final BookCommandToBook toBook;
     private final AuthorCommandToAuthor toAuthor;
     private final CategoryCommandToCategory toCategory;
+    private final BookToBookCommand toBookCommand;
 
-    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository, BookCommandToBook toBook, AuthorCommandToAuthor toAuthor, CategoryCommandToCategory toCategory) {
+    public BookServiceImpl(BookRepository bookRepository, AuthorRepository authorRepository, CategoryRepository categoryRepository, BookCommandToBook toBook, AuthorCommandToAuthor toAuthor, CategoryCommandToCategory toCategory, BookToBookCommand toBookCommand) {
         this.bookRepository = bookRepository;
         this.authorRepository = authorRepository;
         this.categoryRepository = categoryRepository;
         this.toBook = toBook;
         this.toAuthor = toAuthor;
         this.toCategory = toCategory;
+        this.toBookCommand = toBookCommand;
     }
+
 
 
     @Override
@@ -51,7 +59,8 @@ public class BookServiceImpl implements BookService{
     }
 
     @Override
-    public Book saveOrUpade(BookCommand bookCommand, AuthorCommand authorCommand, CategoryCommand categoryCommand) {
+    @Transactional
+    public Book saveNewBook(BookCommand bookCommand, AuthorCommand authorCommand, CategoryCommand categoryCommand) {
         // check wheather it is new author or category to save
         Author author;
 
@@ -87,11 +96,46 @@ public class BookServiceImpl implements BookService{
         }
 
         Book book = toBook.convert(bookCommand);
-        book.setAvailable(true);
+        book.setAvailable(AVAILABLE);
         book.setAuthor(author);
         book.setCategory(category);
 
         return bookRepository.save(book);
     }
     
+    @Override
+    public BookCommand getBookComandById(String id) {
+        if(Util.isNumeric(id)) {
+            
+            Optional<Book> bookOptional = bookRepository.findById(Long.parseLong(id));
+
+            if(bookOptional.isPresent()) return toBookCommand.convert(bookOptional.get());
+            else throw new RuntimeException(NO_BOOK_FOUND);
+            
+        } else
+            throw new NumberFormatException(INVALID_ID);
+    }
+    
+    @Override
+    public Book saveEditedBook(BookCommand bookCommand) {
+
+        // find book in database
+        Optional<Book> bookOptional = bookRepository.findById(bookCommand.getId());
+
+        if(!bookOptional.isPresent()) throw new RuntimeException(NO_BOOK_FOUND);
+
+        Book book = bookOptional.get();
+        
+        // find proper author and category
+        Author author = authorRepository.findById(bookCommand.getAuthor().getId()).orElseThrow(RuntimeException::new);
+        Category category = categoryRepository.findById(bookCommand.getCategory().getId()).orElseThrow(RuntimeException::new);
+        
+        // set new values to book
+        book.setTitle(bookCommand.getTitle());
+        book.setAuthor(author);
+        book.setCategory(category);
+
+        // return saved book
+        return bookRepository.save(book);
+    }
 }

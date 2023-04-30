@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dodaj książkę - bibliotekarz</title>
+    <title>Edytuj książkę - bibliotekarz</title>
 </head>
 <body>
     <div class="container">
@@ -21,11 +21,9 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Dodawanie nowej książki</h1>
+        <h1>Edytowanie książki</h1>
 
-        <h4 th:text="${message}"></h4>
-
-        <form th:action="@{/save}" th:object="${book}" method="post">
+        <form th:action="@{/edit}" th:object="${book}" method="post">
             <input type="hidden" name="" th:field="*{id}">
             
             <label>Tytuł </label>
@@ -33,14 +31,8 @@
 
             <hr>
 
-            <h3>Dodaj nowego autora</h3>
-            <input th:field="${author.id}" type="hidden">
-            <label>Imię </label>
-            <input type="text" th:field="${author.firstName}"> <br>
-            <label>Nazwisko </label>
-            <input type="text" th:field="${author.lastName}"> <br>
+            <h3>Zmień autora</h3>
 
-            <h3>Lub wybierz istniejącego</h3>
             <label>Autor </label>
             <select th:field="*{author.id}">
                 <option th:each="aut: ${authorList}"
@@ -51,12 +43,8 @@
             
             <hr>
 
-            <h3>Dodaj nową kategorię</h3>
-            <label>Kategoria </label>
-            <input type="hidden" th:field="${category.id}">
-            <input type="text" th:field="${category.name}"> <br>
+            <h3>Zmień kategorię</h3>
 
-            <h3>Lub wybierz istniejącą</h3>
             <label>Kategoria </label>
             <select th:field="*{category.id}">
                 <option th:each="cat : ${categoriesList}"

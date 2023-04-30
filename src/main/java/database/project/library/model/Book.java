@@ -37,14 +37,14 @@ public class Book {
     
     private String title;
 
-    private Boolean available;
+    private String available;
 
     public void addAuthor(Author author) {
         this.author = author;
         author.getBooks().add(this);
     }
 
-    public Book(Author author, String title, Boolean available, Category category) {
+    public Book(Author author, String title, String available, Category category) {
         this.addAuthor(author);
         this.title = title;
         this.available = available;

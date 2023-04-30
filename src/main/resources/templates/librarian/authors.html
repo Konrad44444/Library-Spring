@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteka - bibliotekarz</title>
+    <title>Autorzy - bibliotekarz</title>
 </head>
 <body>
     <div class="container">
@@ -25,26 +25,19 @@
             <table class="books-table">
                 <thead>
                     <tr>
-                        <th>Tytuł</th>
-                        <th>Autor</th>
-                        <th>Kategorie</th>
+                        <th>Imie</th>
+                        <th>Nazwisko</th>
                         <th></th>
-                        <th></th>
-                        <th></th>
+                        <!-- TODO: display all author's books -->
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="book : ${books}">
-                        <td th:text="${book.title}">tytul</td>
-                        <td th:text="${book.author.getFirstName()} + ' ' + ${book.author.getLastName()}">autor</td>
-                        <td th:text="${book.category.getName()}">kategorie</td>
-                        <td th:text="${book.available}">(nie)dostępna</td> 
+                    <tr th:each="author : ${authorsList}">
+                        <td th:text="${author.firstName}">imie</td>
+                        <td th:text="${author.lastName}">nazwisko</td>
                         <td>
-                            <a th:href="@{'/edit/book/' + ${book.id}}" class="button">Edytuj</a>
-                        </td>
-                        <td>
-                            <a href="" class="button">Usuń</a>
+                            <a th:href="@{'/edit/author/' + ${author.id}}" class="button">Edytuj</a>
                         </td>
                     </tr>
                 </tbody>

@@ -9,5 +9,7 @@ import database.project.library.model.Book;
 
 public interface BookService {
     List<Book> getAllBooks();
-    Book saveOrUpade(BookCommand bookCommand, AuthorCommand authorCommand, CategoryCommand categoryCommand);
+    Book saveNewBook(BookCommand bookCommand, AuthorCommand authorCommand, CategoryCommand categoryCommand);
+    BookCommand getBookComandById(String id);
+    Book saveEditedBook(BookCommand bookCommand);
 }

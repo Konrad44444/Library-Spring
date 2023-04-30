@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import database.project.library.commands.AuthorCommand;
 import database.project.library.commands.BookCommand;
@@ -29,6 +29,9 @@ public class BookController {
     private static final String CATEGORY_LIST = "categoriesList";
     private static final String SAVE_MAP = "/save";
     private static final String MAIN_VIEW_REDIRECT = "redirect:/mainview";
+    private static final String EDIT_BOOK_MAP = "/edit/book/{id}";
+    private static final String EDIT_BOOK_PATH = "/librarian/editbook";
+    private static final String EDIT = "/edit";
 
     private final BookService bookService;
     private final AuthorService authorService;
@@ -62,21 +65,37 @@ public class BookController {
     }
 
     @PostMapping(SAVE_MAP)
-    public ModelAndView saveOrUpdate(
+    public String saveOrUpdate(
         @ModelAttribute BookCommand bookCommand,
         @ModelAttribute AuthorCommand authorCommand,
         @ModelAttribute CategoryCommand categoryCommand
     ) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName(MAIN_VIEW_REDIRECT);
 
-        // 
-        // System.out.println(bookCommand.getTitle() + " " + bookCommand.getAuthor().getId() + " " + bookCommand.getCategory().getId());
-        // System.out.println(authorCommand);
-        // System.out.println(categoryCommand);
+        bookService.saveNewBook(bookCommand, authorCommand, categoryCommand);
 
-        bookService.saveOrUpade(bookCommand, authorCommand, categoryCommand);
+        return MAIN_VIEW_REDIRECT;
+    }
 
-        return modelAndView;
+    @GetMapping(EDIT_BOOK_MAP)
+    public String editBook(@PathVariable String id, Model model) {
+
+        BookCommand bookCommandFound = bookService.getBookComandById(id);
+
+        model.addAttribute(BOOK, bookCommandFound);
+        List<Author> authorList = authorService.getAllAuthors();
+        List<Category> categoryList = categoryService.getAllCategories();
+
+        model.addAttribute(AUTHOR_LIST, authorList);
+        model.addAttribute(CATEGORY_LIST, categoryList);
+
+        return EDIT_BOOK_PATH;
+    }
+
+    @PostMapping(EDIT)
+    public String saveEditedBook(@ModelAttribute BookCommand bookCommand) {
+        
+        bookService.saveEditedBook(bookCommand);
+
+        return MAIN_VIEW_REDIRECT;
     }
 }

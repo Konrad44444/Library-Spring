@@ -11,7 +11,7 @@ public class BookCommand {
     private Long id;
     private AuthorCommand author = new AuthorCommand();
     private String title;
-    private Boolean available;
+    private String available;
     private CategoryCommand category = new CategoryCommand();
 
     @Override
