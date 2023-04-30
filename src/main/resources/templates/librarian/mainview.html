@@ -44,7 +44,7 @@
                             <a th:href="@{'/edit/book/' + ${book.id}}" class="button">Edytuj</a>
                         </td>
                         <td>
-                            <a href="" class="button">Usuń</a>
+                            <a th:href="@{'/delete/book/' + ${book.id}}" class="button">Usuń</a>
                         </td>
                     </tr>
                 </tbody>

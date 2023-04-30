@@ -12,4 +12,5 @@ public interface BookService {
     Book saveNewBook(BookCommand bookCommand, AuthorCommand authorCommand, CategoryCommand categoryCommand);
     BookCommand getBookComandById(String id);
     Book saveEditedBook(BookCommand bookCommand);
+    void deleteBookById(String id);
 }

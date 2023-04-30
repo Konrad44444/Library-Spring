@@ -109,8 +109,10 @@ public class BookServiceImpl implements BookService{
             
             Optional<Book> bookOptional = bookRepository.findById(Long.parseLong(id));
 
-            if(bookOptional.isPresent()) return toBookCommand.convert(bookOptional.get());
-            else throw new RuntimeException(NO_BOOK_FOUND);
+            if(bookOptional.isPresent()) 
+                return toBookCommand.convert(bookOptional.get());
+            else 
+                throw new RuntimeException(NO_BOOK_FOUND);
             
         } else
             throw new NumberFormatException(INVALID_ID);
@@ -122,7 +124,8 @@ public class BookServiceImpl implements BookService{
         // find book in database
         Optional<Book> bookOptional = bookRepository.findById(bookCommand.getId());
 
-        if(!bookOptional.isPresent()) throw new RuntimeException(NO_BOOK_FOUND);
+        if(!bookOptional.isPresent()) 
+            throw new RuntimeException(NO_BOOK_FOUND);
 
         Book book = bookOptional.get();
         
@@ -138,4 +141,21 @@ public class BookServiceImpl implements BookService{
         // return saved book
         return bookRepository.save(book);
     }
+
+    @Override
+    public void deleteBookById(String id) {
+        if(Util.isNumeric(id)) {
+            
+            Optional<Book> bookOptional = bookRepository.findById(Long.parseLong(id));
+
+            if(bookOptional.isPresent()) 
+                bookRepository.deleteById(Long.parseLong(id));
+            else 
+                throw new RuntimeException(NO_BOOK_FOUND);
+            
+        } else
+            throw new NumberFormatException(INVALID_ID);
+    }
+
+    
 }

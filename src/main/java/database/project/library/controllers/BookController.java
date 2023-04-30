@@ -32,6 +32,7 @@ public class BookController {
     private static final String EDIT_BOOK_MAP = "/edit/book/{id}";
     private static final String EDIT_BOOK_PATH = "/librarian/editbook";
     private static final String EDIT = "/edit";
+    private static final String DELETE_BOOK_MAP = "/delete/book/{id}";
 
     private final BookService bookService;
     private final AuthorService authorService;
@@ -95,6 +96,14 @@ public class BookController {
     public String saveEditedBook(@ModelAttribute BookCommand bookCommand) {
         
         bookService.saveEditedBook(bookCommand);
+
+        return MAIN_VIEW_REDIRECT;
+    }
+
+    @GetMapping(DELETE_BOOK_MAP)
+    public String deleteBook(@PathVariable String id) {
+
+        bookService.deleteBookById(id);
 
         return MAIN_VIEW_REDIRECT;
     }
