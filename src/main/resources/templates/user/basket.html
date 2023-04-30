@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteka</title>
+    <title>Koszyk</title>
 </head>
 <body>
     <div class="container">
@@ -16,14 +16,17 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
+
         <div class="book-list">
+            <h1>Twój koszyk</h1>
+            <h2 th:text="${message}"></h2>
+
             <table class="books-table">
                 <thead>
                     <tr>
                         <th>Tytuł</th>
                         <th>Autor</th>
                         <th>Kategoria</th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -33,10 +36,9 @@
                         <td th:text="${book.title}">tytul</td>
                         <td th:text="${book.author.getFirstName()} + ${book.author.getLastName()}">autor</td>
                         <td th:text="${book.category.getName()}">kategorie</td>
-                        <td th:text="${book.available}">(nie)dostępna</td> 
                         <td>
-                            <a th:href="@{'/addtobasket/' + ${book.id}}">Dodaj do koszyka</a>
-                            <!-- TODO: disable button is status is 'zarezerwowana' or 'wypożyczona' -->
+                            <a th:href="@{'/deletefrombasket/' + ${book.id}}">Usuń z koszyka</a>
+                            <!-- TODO: disable button if status is 'zarezerwowana' or 'wypożyczona' -->
                         </td>
                     </tr>
                 </tbody>

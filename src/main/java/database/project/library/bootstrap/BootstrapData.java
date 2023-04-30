@@ -10,10 +10,13 @@ import org.springframework.stereotype.Component;
 import database.project.library.model.Author;
 import database.project.library.model.Book;
 import database.project.library.model.Category;
+import database.project.library.model.User;
+import database.project.library.repositories.ActiveRepository;
 import database.project.library.repositories.AuthorRepository;
 import database.project.library.repositories.BasketRepository;
 import database.project.library.repositories.BookRepository;
 import database.project.library.repositories.CategoryRepository;
+import database.project.library.repositories.UserRepository;
 
 @Component
 public class BootstrapData implements CommandLineRunner {
@@ -21,12 +24,16 @@ public class BootstrapData implements CommandLineRunner {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
     private final BasketRepository basketRepository;
+    private final UserRepository userRepository;
+    private final ActiveRepository activeRepository;
 
-    public BootstrapData(CategoryRepository categoryRepository, AuthorRepository authorRepository, BookRepository bookRepository, BasketRepository basketRepository) {
+    public BootstrapData(CategoryRepository categoryRepository, AuthorRepository authorRepository, BookRepository bookRepository, BasketRepository basketRepository, UserRepository userRepository, ActiveRepository activeRepository) {
         this.categoryRepository = categoryRepository;
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.basketRepository = basketRepository;
+        this.userRepository = userRepository;
+        this.activeRepository = activeRepository;
     }
 
 
@@ -36,9 +43,12 @@ public class BootstrapData implements CommandLineRunner {
         basketRepository.deleteAll();
         bookRepository.deleteAll();
         authorRepository.deleteAll();
+        userRepository.deleteAll();
+        activeRepository.deleteAll();
         loadBooksAndAuthors();
+        loadUsers();
 
-        System.out.println("--- Books and Authors data loaded. ---");
+        System.out.println("--- Books, Authors and Users data loaded. ---");
         
     }
 
@@ -66,5 +76,25 @@ public class BootstrapData implements CommandLineRunner {
         bookRepository.save(R1984);
 
         System.out.println("--- Books and Authors data loading... ---");
+    }
+
+    private void loadUsers() {
+        User bulbek = new User("bulbek", "Kwakwa5!", "Bulbulezar", "Ptak", true);
+        bulbek.setId(null);
+        bulbek.setBasket(null);
+
+        User konrad = new User("konrad", "konrad", "Konrad", "Warzecha", false);
+        konrad.setId(null);
+        konrad.setBasket(null);
+
+        User mama = new User("mama", "mama", "Renata", "Warzecha", false);
+        mama.setId(null);
+        mama.setBasket(null);
+
+        userRepository.save(bulbek);
+        userRepository.save(konrad);
+        userRepository.save(mama);
+
+        System.out.println("--- Users data loading... ---");
     }
 }

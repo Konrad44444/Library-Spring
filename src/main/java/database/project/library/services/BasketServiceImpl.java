@@ -1,9 +1,13 @@
 package database.project.library.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import database.project.library.commands.BookCommand;
+import database.project.library.converters.BookToBookCommand;
 import database.project.library.model.Basket;
 import database.project.library.model.Book;
 import database.project.library.model.User;
@@ -17,12 +21,14 @@ public class BasketServiceImpl implements BasketService{
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
     private final LoginService loginService;
+    private final BookToBookCommand toBookCommand;
 
-    public BasketServiceImpl(BasketRepository basketRepository, BookRepository bookRepository, UserRepository userRepository, LoginService loginService) {
+    public BasketServiceImpl(BasketRepository basketRepository, BookRepository bookRepository, UserRepository userRepository, LoginService loginService, BookToBookCommand toBookCommand) {
         this.basketRepository = basketRepository;
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
         this.loginService = loginService;
+        this.toBookCommand = toBookCommand;
     }
 
 
@@ -50,7 +56,6 @@ public class BasketServiceImpl implements BasketService{
                     Basket basket;
                     if(user.getBasket() == null) {
                         basket = new Basket();
-                        basket.setUser(user);
                         user.setBasket(basket);
                     } else {
                         basket = basketRepository.findById(user.getBasket().getId()).get();
@@ -60,9 +65,9 @@ public class BasketServiceImpl implements BasketService{
                     basket.getBooks().add(book);
                     book.setBasket(basket);
 
+                    basketRepository.save(basket);
                     userRepository.save(user);
                     bookRepository.save(book);
-                    basketRepository.save(basket);
 
                 } else
                     throw new RuntimeException(Util.NO_ACTIVE_USER);
@@ -73,6 +78,46 @@ public class BasketServiceImpl implements BasketService{
         } else 
             throw new RuntimeException(Util.INVALID_ID);
         
+    }
+
+
+    @Override
+    public List<BookCommand> getAllBooksFromBasket() {
+        
+        Optional<User> currentUser = loginService.getCurrentUser();
+
+        if(currentUser.isPresent()) {
+            // user is logged in -> find his basket id
+            User user = currentUser.get();
+
+            if(user.getBasket() != null) {
+                // user has basket -> get basket id and list all books with this basket id
+
+                List<BookCommand> list = new ArrayList<>();
+
+                bookRepository.findAll().iterator().forEachRemaining(
+                    book -> {
+
+                        // book is in basket
+                        if(book.getBasket() != null) {
+
+                            //book is in right basket
+                            if(book.getBasket().getId().equals(user.getBasket().getId())) 
+                                list.add(toBookCommand.convert(book));
+                        
+                        }
+                            
+                    }
+                );
+
+                return list;
+
+            } else 
+                return new ArrayList<>();
+
+
+        } else
+            throw new RuntimeException(Util.NO_ACTIVE_USER);
     }
 
     
