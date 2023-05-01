@@ -113,11 +113,35 @@ public class BasketServiceImpl implements BasketService{
                 return list;
 
             } else 
+                // user has no basket -> return empty list
                 return new ArrayList<>();
 
 
         } else
             throw new RuntimeException(Util.NO_ACTIVE_USER);
+    }
+
+
+    @Override
+    public void removeFromBasketById(String id) {
+
+        if (Util.isNumeric(id)) {
+
+            Optional<Book> bookOptional = bookRepository.findById(Long.parseLong(id));
+            
+            if (bookOptional.isPresent()) {
+                // set book bakset id to null
+                Book book = bookOptional.get();
+                book.setBasket(null);
+                book.setAvailable(Util.AVAILABLE);
+                bookRepository.save(book);
+                
+            } else 
+                throw new RuntimeException(Util.NO_BOOK_FOUND);
+            
+        } else 
+            throw new RuntimeException(Util.INVALID_ID);
+        
     }
 
     

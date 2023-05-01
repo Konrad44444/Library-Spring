@@ -22,6 +22,12 @@ public class IndexController {
     private static final String NO_LOGIN_USER = "Brak użytkownika o podanym loginie!";
     private static final String PASSWORD_INCORRECT = "Hasło niepoprawne!";
     private static final String REDIRECT_MAIN_VIEW = "redirect:/mainview";
+    private static final String INDEX_MAP_1 = "";
+    private static final String INDEX_MAP_2 = "/";
+    private static final String INDEX_MAP_3 = "/index";
+    private static final String INDEX_MAP_4 = "/index.html";
+    private static final String LOGIN_MAP = "/login";
+    private static final String LOGOUT_MAP = "/logout";
 
 
     private final LoginService loginService;
@@ -31,7 +37,7 @@ public class IndexController {
     }
 
 
-    @GetMapping({"", "/", "/index", "/index.html"})
+    @GetMapping({INDEX_MAP_1, INDEX_MAP_2, INDEX_MAP_3, INDEX_MAP_4})
     public String getIndexPage(Model model) {
         Optional<User> logged = loginService.getCurrentUser();
 
@@ -43,7 +49,7 @@ public class IndexController {
         return INDEX;
     }
 
-    @PostMapping("/login")
+    @PostMapping(LOGIN_MAP)
     public ModelAndView checkLogin(@ModelAttribute UserCommand userCommand) {
         System.out.println("--- Login ---\n" + "Login: " + userCommand.getLogin() + " Password: " + userCommand.getPassword());
         ModelAndView modelAndView = new ModelAndView();
@@ -80,7 +86,7 @@ public class IndexController {
 
     }
 
-    @GetMapping("/logout")
+    @GetMapping(LOGOUT_MAP)
     public String logout(Model model) {
         System.out.println("Wylogowano");
         loginService.logout();

@@ -17,6 +17,7 @@ public class MainVeiwController {
     private static final String BOOKS = "books";
     private static final String LIBRARIAN_VIEW_PATH = "/librarian/mainview";
     private static final String USER_VIEW_PATH = "/user/mainview";
+    private static final String MAINVIEW_MAP = "/mainview";
 
     private final BookService bookService;
     private final LoginService loginService;
@@ -29,7 +30,7 @@ public class MainVeiwController {
     }
 
     
-    @GetMapping("/mainview")
+    @GetMapping(MAINVIEW_MAP)
     public String getMainView(Model model) {
         // pass list of books to view
         List<Book> books = bookService.getAllBooks();

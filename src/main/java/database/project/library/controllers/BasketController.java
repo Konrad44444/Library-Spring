@@ -19,6 +19,8 @@ public class BasketController {
     private static final String BOOKS = "books";
     private static final String MESSAGE = "message";
     private static final String EMPTY_BASKET = "Twój koszyk jest pusty.";
+    private static final String DELETE_FROM_BAKSET_MAP = "/deletefrombasket/{id}";
+    private static final String REDIRECT_SHOW_BASKET = "redirect:" + SHOW_BASKET_MAP;
 
     private final BasketService basketService;
 
@@ -28,7 +30,7 @@ public class BasketController {
 
 
     @GetMapping(ADD_TO_BASKET_MAP)
-    public String addToBasket(@PathVariable String id, Model model) {
+    public String addToBasket(@PathVariable String id) {
 
         basketService.addBookToBasket(id); 
 
@@ -46,5 +48,13 @@ public class BasketController {
         model.addAttribute(BOOKS, books);
 
         return BASKET_PATH;
+    }
+
+    @GetMapping(DELETE_FROM_BAKSET_MAP)
+    public String deleteBookFromBasketById(@PathVariable String id) {
+
+        basketService.removeFromBasketById(id);
+
+        return REDIRECT_SHOW_BASKET;
     }
 }

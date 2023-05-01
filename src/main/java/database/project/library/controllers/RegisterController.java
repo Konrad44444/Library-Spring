@@ -18,6 +18,9 @@ public class RegisterController {
     private static final String INDEX = "index";
     private static final String REGISTRATION_GOOD = "Rejestracja przebiegła pomyślnie!";
     private static final String REGISTRATION_BAD_LOGIN_EXISTS = "Użytkownik o podanym loginie istnieje!";
+    private static final String REGISTER_MAP_1 = "/register";
+    private static final String REGISTER_MAP_2 = "/register/";
+    private static final String REGISTER_NEW_MAP = "/register/new";
 
     private final RegisterService registerService;
 
@@ -26,14 +29,14 @@ public class RegisterController {
     }    
 
 
-    @GetMapping({"/register", "/register/"})
+    @GetMapping({REGISTER_MAP_1, REGISTER_MAP_2})
     public String showRegisterPage(Model model) {
         model.addAttribute(USER, new UserCommand());
 
         return REGISTER;
     }
 
-    @PostMapping("/register/new")
+    @PostMapping(REGISTER_NEW_MAP)
     public ModelAndView registerNewUser(@ModelAttribute UserCommand userCommand) {
         userCommand.setIsLibrarian(false);
 
