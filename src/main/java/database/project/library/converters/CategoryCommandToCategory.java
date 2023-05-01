@@ -1,5 +1,7 @@
 package database.project.library.converters;
 
+import java.util.ArrayList;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ public class CategoryCommandToCategory implements Converter<CategoryCommand, Cat
         Category category = new Category();
         category.setId(source.getId());
         category.setName(source.getName());
+        category.setBooks(new ArrayList<>());
 
         return category;
     }
