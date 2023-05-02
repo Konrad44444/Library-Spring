@@ -21,6 +21,7 @@ public class BasketController {
     private static final String EMPTY_BASKET = "Twój koszyk jest pusty.";
     private static final String DELETE_FROM_BAKSET_MAP = "/deletefrombasket/{id}";
     private static final String REDIRECT_SHOW_BASKET = "redirect:" + SHOW_BASKET_MAP;
+    private static final String MAKE_LOAN_MAP = "/makeloan";
 
     private final BasketService basketService;
 
@@ -56,5 +57,13 @@ public class BasketController {
         basketService.removeFromBasketById(id);
 
         return REDIRECT_SHOW_BASKET;
+    }
+
+    @GetMapping(MAKE_LOAN_MAP)
+    public String makeLoan() {
+
+        basketService.makeLoan();
+
+        return MAIN_VIEW_REDIRECT;
     }
 }

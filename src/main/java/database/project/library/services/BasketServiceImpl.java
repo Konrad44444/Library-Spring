@@ -3,16 +3,20 @@ package database.project.library.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import database.project.library.commands.BookCommand;
+import database.project.library.converters.BookCommandToBook;
 import database.project.library.converters.BookToBookCommand;
 import database.project.library.model.Basket;
 import database.project.library.model.Book;
+import database.project.library.model.Loan;
 import database.project.library.model.User;
 import database.project.library.repositories.BasketRepository;
 import database.project.library.repositories.BookRepository;
+import database.project.library.repositories.LoanRepository;
 import database.project.library.repositories.UserRepository;
 
 @Service
@@ -22,13 +26,17 @@ public class BasketServiceImpl implements BasketService{
     private final UserRepository userRepository;
     private final LoginService loginService;
     private final BookToBookCommand toBookCommand;
+    private final BookCommandToBook toBook;
+    private final LoanRepository loanRepository;
 
-    public BasketServiceImpl(BasketRepository basketRepository, BookRepository bookRepository, UserRepository userRepository, LoginService loginService, BookToBookCommand toBookCommand) {
+    public BasketServiceImpl(BasketRepository basketRepository, BookRepository bookRepository, UserRepository userRepository, LoginService loginService, BookToBookCommand toBookCommand, BookCommandToBook bookCommandToBook, LoanRepository loanRepository) {
         this.basketRepository = basketRepository;
         this.bookRepository = bookRepository;
         this.userRepository = userRepository;
         this.loginService = loginService;
         this.toBookCommand = toBookCommand;
+        this.toBook = bookCommandToBook;
+        this.loanRepository = loanRepository;
     }
 
 
@@ -144,5 +152,41 @@ public class BasketServiceImpl implements BasketService{
         
     }
 
-    
+    @Override
+    public void makeLoan() {
+        
+        // get current user
+        Optional<User> userOptional = loginService.getCurrentUser();
+        if(userOptional.isPresent()) {
+
+            User user = userOptional.get();
+
+            if(user.getBasket() != null) {
+
+                List<Book> books = getAllBooksFromBasket().stream()
+                    .map(book -> toBook.convert(book))
+                    .collect(Collectors.toList());
+
+                Loan loan = new Loan(books, user);
+                
+                books.forEach(book -> {
+                        book.setLoan(loan);
+                        book.setAvailable(Util.UNAVAILABLE);
+                    }
+                );
+                user.getLoans().add(loan);
+                
+                loanRepository.save(loan);
+                bookRepository.saveAll(books);
+                userRepository.save(user);
+
+            } else
+                throw new RuntimeException(Util.NO_BASKET);
+
+        } else  
+            throw new RuntimeException(Util.NO_ACTIVE_USER);
+        
+    }
+
+
 }

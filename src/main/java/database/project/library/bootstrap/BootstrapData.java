@@ -16,6 +16,7 @@ import database.project.library.repositories.AuthorRepository;
 import database.project.library.repositories.BasketRepository;
 import database.project.library.repositories.BookRepository;
 import database.project.library.repositories.CategoryRepository;
+import database.project.library.repositories.LoanRepository;
 import database.project.library.repositories.UserRepository;
 
 @Component
@@ -26,14 +27,16 @@ public class BootstrapData implements CommandLineRunner {
     private final BasketRepository basketRepository;
     private final UserRepository userRepository;
     private final ActiveRepository activeRepository;
+    private final LoanRepository loanRepository;
 
-    public BootstrapData(CategoryRepository categoryRepository, AuthorRepository authorRepository, BookRepository bookRepository, BasketRepository basketRepository, UserRepository userRepository, ActiveRepository activeRepository) {
+    public BootstrapData(CategoryRepository categoryRepository, AuthorRepository authorRepository, BookRepository bookRepository, BasketRepository basketRepository, UserRepository userRepository, ActiveRepository activeRepository, LoanRepository loanRepository) {
         this.categoryRepository = categoryRepository;
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.basketRepository = basketRepository;
         this.userRepository = userRepository;
         this.activeRepository = activeRepository;
+        this.loanRepository = loanRepository;
     }
 
 
@@ -45,6 +48,7 @@ public class BootstrapData implements CommandLineRunner {
         authorRepository.deleteAll();
         userRepository.deleteAll();
         activeRepository.deleteAll();
+        loanRepository.deleteAll();
         loadBooksAndAuthors();
         loadUsers();
 

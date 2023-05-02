@@ -8,4 +8,5 @@ public interface BasketService {
     void addBookToBasket(String id);
     List<BookCommand> getAllBooksFromBasket();
     void removeFromBasketById(String id);
+    void makeLoan();
 }

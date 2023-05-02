@@ -34,10 +34,10 @@ public class Loan {
     private LocalDate dateOfLoan;
     private LocalDate dateOfReturn;
 
-    public Loan(List<Book> books, User user, LocalDate dateOfLoan) {
+    public Loan(List<Book> books, User user) {
         this.books = books;
         this.user = user;
-        this.dateOfLoan = dateOfLoan;
+        this.dateOfLoan = LocalDate.now();
         this.dateOfReturn = dateOfLoan.plusMonths(1);
     }
 }
