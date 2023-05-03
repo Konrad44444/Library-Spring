@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edytuj autora - bibliotekarz</title>
+    <title>Edytuj kategorię - bibliotekarz</title>
 </head>
 <body>
     <div class="container">
@@ -21,21 +21,18 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Edytowanie autora</h1>
+        <h1>Edytowanie kategorii</h1>
         <hr>
 
-        <form th:action="@{/editauthor}" th:object="${author}" method="post">
+        <form th:action="@{/editcategory}" th:object="${category}" method="post">
             <input type="hidden" name="" th:field="*{id}">
             
-            <label>Imię </label>
-            <input type="text" th:field="*{firstName}"> <br>
-
-            <label>Nazwisko </label>
-            <input type="text" th:field="*{lastName}"> <br>
+            <label>Kategoria </label>
+            <input type="text" th:field="*{name}"> <br>
 
 
             <button type="submit">Zapisz</button>
-            <a th:href="@{/authors}" class="button">Anuluj</a>
+            <a th:href="@{/categories}" class="button">Anuluj</a>
 
         </form>
        
