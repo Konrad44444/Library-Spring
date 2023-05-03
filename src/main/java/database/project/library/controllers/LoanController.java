@@ -1,0 +1,34 @@
+package database.project.library.controllers;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import database.project.library.commands.LoanCommand;
+import database.project.library.services.LoanService;
+
+@Controller
+public class LoanController {
+    private static final String SHOW_LOANS_MAP = "/showloans";
+    private static final String SHOW_LOAN_PATH = "/user/loans";
+    private static final String LOANS = "loans";
+
+    private final LoanService loanService;
+
+    public LoanController(LoanService loanService) {
+        this.loanService = loanService;
+    }
+
+
+    @GetMapping(SHOW_LOANS_MAP)
+    public String showLoans(Model model) {
+
+        List<LoanCommand> loans = loanService.getAllCurrentUserLoans();
+
+        model.addAttribute(LOANS, loans);
+
+        return SHOW_LOAN_PATH;
+    }
+}

@@ -48,7 +48,7 @@ public class BootstrapData implements CommandLineRunner {
         authorRepository.deleteAll();
         userRepository.deleteAll();
         activeRepository.deleteAll();
-        loanRepository.deleteAll();
+        //loanRepository.deleteAll();
         loadBooksAndAuthors();
         loadUsers();
 

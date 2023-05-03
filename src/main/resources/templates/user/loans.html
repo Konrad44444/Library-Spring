@@ -18,27 +18,28 @@
 
 
         <div class="book-list">
-            <h1>Twój koszyk</h1>
+            <h1>Twoje wypożyczenia</h1>
             <h2 th:text="${message}"></h2>
 
             <table class="books-table">
                 <thead>
                     <tr>
-                        <th>Tytuł</th>
-                        <th>Autor</th>
-                        <th>Kategoria</th>
-                        <th></th>
+                        <th>Data wypożyczenia</th>
+                        <th>Data zwrotu</th>
+                        <th>Książki</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="book : ${books}">
-                        <td th:text="${book.title}">tytul</td>
-                        <td th:text="${book.author.getFirstName()} + ${book.author.getLastName()}">autor</td>
-                        <td th:text="${book.category.getName()}">kategorie</td>
+                    <tr th:each="loan : ${loans}">
+                        <td th:text="${loan.dateOfLoan}">tytul</td>
+                        <td th:text="${loan.dateOfReturn}">autor</td>
                         <td>
-                            <a th:href="@{'/deletefrombasket/' + ${book.id}}">Usuń z koszyka</a>
-                            <!-- TODO: disable button if status is 'zarezerwowana' or 'wypożyczona' -->
+                            <ul>
+                                <li th:each="book : ${loan.books}" 
+                                    th:text="${book.title} + ', ' + ${book.author.getFirstName()} + ' ' + ${book.author.getLastName()}"
+                                    >książka1</li>
+                            </ul>
                         </td>
                     </tr>
                 </tbody>
