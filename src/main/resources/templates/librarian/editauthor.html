@@ -21,43 +21,21 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Edytowanie książki</h1>
+        <h1>Edytowanie autora</h1>
         <hr>
 
-        <form th:action="@{/edit}" th:object="${book}" method="post">
+        <form th:action="@{/editauthor}" th:object="${author}" method="post">
             <input type="hidden" name="" th:field="*{id}">
             
-            <label>Tytuł </label>
-            <input type="text" th:field="*{title}"> <br>
+            <label>Imię </label>
+            <input type="text" th:field="*{firstName}"> <br>
 
-            <hr>
+            <label>Nazwisko </label>
+            <input type="text" th:field="*{lastName}"> <br>
 
-            <h3>Zmień autora</h3>
-
-            <label>Autor </label>
-            <select th:field="*{author.id}">
-                <option th:each="aut: ${authorList}"
-                    th:value="${aut.id}"
-                    th:selected="${aut.id.equals(book.author.id)}"
-                    th:text="${aut.firstName} + ' ' + ${aut.lastName}">author</option>
-            </select>
-            
-            <hr>
-
-            <h3>Zmień kategorię</h3>
-
-            <label>Kategoria </label>
-            <select th:field="*{category.id}">
-                <option th:each="cat : ${categoriesList}"
-                    th:value="${cat.id}"
-                    th:selected="${cat.id.equals(book.category.id)}"
-                    th:text="${cat.name}">category</option>
-            </select>
-
-            <br>
 
             <button type="submit">Zapisz</button>
-            <a th:href="@{/mainview}" class="button">Anuluj</a>
+            <a th:href="@{/authors}" class="button">Anuluj</a>
 
         </form>
        
