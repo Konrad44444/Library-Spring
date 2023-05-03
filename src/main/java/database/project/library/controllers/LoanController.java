@@ -14,6 +14,8 @@ public class LoanController {
     private static final String SHOW_LOANS_MAP = "/showloans";
     private static final String SHOW_LOAN_PATH = "/user/loans";
     private static final String LOANS = "loans";
+    private static final String MESSAGE = "message";
+    private static final String NO_LOANS = "Jeszcze nie masz żadnych wypożyczeń.";
 
     private final LoanService loanService;
 
@@ -26,6 +28,9 @@ public class LoanController {
     public String showLoans(Model model) {
 
         List<LoanCommand> loans = loanService.getAllCurrentUserLoans();
+
+        if(loans.isEmpty())
+            model.addAttribute(MESSAGE, NO_LOANS);
 
         model.addAttribute(LOANS, loans);
 
