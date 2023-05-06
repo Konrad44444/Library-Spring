@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteka</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a th:href="@{/mainview}" class="button">Książki</a>
+            <a th:href="@{/showloans}" class="button">Moje wypożyczenia</a>
+            <a th:href="@{/showbasket}" class="button">Koszyk</a>
+            <a th:href="@{/profile}" class="button">Mój profil</a>
+            <a th:href="@{/logout}" class="button">Wyloguj się</a>
+        </div>
+
+        <div class="content">
+            <h1>Profil użytkownika biblioteki</h1>
+
+            <h2>Login</h2>
+            <h3 th:text="${user.login}"></h3>
+
+            <h2>Hasło</h2>
+            <h3 id="password" th:text="${user.password}"></h3>
+
+            <h2>Imię</h2>
+            <h3 th:text="${user.firstName}"></h3>
+
+            <h2>Nazwisko</h2>
+            <h3 th:text="${user.lastName}"></h3>
+
+            <a th:href="/edit/profile" class="button">Edytuj dane</a>
+
+        </div>
+
+        <div class="footer">
+            <h2 class="copyright">Copyright © 2023 Konrad Warzecha</h2>
+        </div>
+
+    </div>
+</body>
+</html>
