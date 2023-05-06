@@ -16,6 +16,8 @@ public class LoanController {
     private static final String LOANS = "loans";
     private static final String MESSAGE = "message";
     private static final String NO_LOANS = "Jeszcze nie masz żadnych wypożyczeń.";
+    private static final String ALL_LOANS_MAP = "/all_loans";
+    private static final String ALL_LOANS_PATH = "/librarian/loans";
 
     private final LoanService loanService;
 
@@ -35,5 +37,13 @@ public class LoanController {
         model.addAttribute(LOANS, loans);
 
         return SHOW_LOAN_PATH;
+    }
+
+    @GetMapping(ALL_LOANS_MAP)
+    public String showAllLoans(Model model) {
+
+        model.addAttribute(LOANS, loanService.getAllLoans());
+
+        return ALL_LOANS_PATH;
     }
 }

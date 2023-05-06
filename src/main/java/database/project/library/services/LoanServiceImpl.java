@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import database.project.library.commands.LoanCommand;
 import database.project.library.converters.LoanToLoanCommand;
+import database.project.library.model.Loan;
 import database.project.library.model.User;
 import database.project.library.repositories.LoanRepository;
 
@@ -55,5 +56,17 @@ public class LoanServiceImpl implements LoanService{
             throw new RuntimeException(Util.NO_ACTIVE_USER);
 
     }
+
+    @Override
+    public List<Loan> getAllLoans() {
+        List<Loan> loans = new ArrayList<>();
+
+        loanRepository.findAll().iterator()
+            .forEachRemaining(loans::add);
+
+        return loans;
+    }
+
+    
   
 }

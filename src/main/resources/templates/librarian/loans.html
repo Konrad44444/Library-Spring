@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autorzy - bibliotekarz</title>
+    <title>Wypożyczenia - bibliotekarz</title>
 </head>
 <body>
     <div class="container">
@@ -22,22 +22,36 @@
         </div>
 
         <div class="book-list">
+
+            <h2>Wszystkie wypożyczenia</h2>
+
             <table class="books-table">
                 <thead>
                     <tr>
-                        <th>Imie</th>
-                        <th>Nazwisko</th>
+                        <th>ID</th>
+                        <th>Login</th>
+                        <th>Imię i nazwisko</th>s
+                        <th>Książki</th>
+                        <th>Data wypożyczenia</th>
+                        <th>Data zwrotu</th>
                         <th></th>
-                        <!-- TODO: display all author's books -->
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="author : ${authorsList}">
-                        <td th:text="${author.firstName}">imie</td>
-                        <td th:text="${author.lastName}">nazwisko</td>
+                    <tr th:each="loan : ${loans}">
+                        <td th:text="${loan.id}">ID</td>
+                        <td th:text="${loan.user.getLogin()}">login</td>
+                        <td th:text="${loan.user.getFirstName()} + ' ' + ${loan.user.getLastName()}">Imię i nazwisko</td>
                         <td>
-                            <a th:href="@{'/edit/author/' + ${author.id}}" class="button">Edytuj</a>
+                            <ul>
+                                <li th:each="book : ${loan.books}" th:text="${book.title}">Książki</li>
+                            </ul>
+                        </td>
+                        <td th:text="${loan.dateOfLoan}">Data wypożyczenia</td> 
+                        <td th:text="${loan.dateOfReturn}">Data zwrotu</td>
+                        <td>
+                            <a href="" class="button">Zwróć wypożyczenie</a>
                         </td>
                     </tr>
                 </tbody>
