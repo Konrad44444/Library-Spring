@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import database.project.library.commands.LoanCommand;
 import database.project.library.services.LoanService;
@@ -18,6 +19,8 @@ public class LoanController {
     private static final String NO_LOANS = "Jeszcze nie masz żadnych wypożyczeń.";
     private static final String ALL_LOANS_MAP = "/all_loans";
     private static final String ALL_LOANS_PATH = "/librarian/loans";
+    private static final String RETURN_LOAN_MAP = "/return/loan/{id}";
+    private static final String REDIRECT_ALL_LOAN = "redirect:" + ALL_LOANS_MAP;
 
     private final LoanService loanService;
 
@@ -45,5 +48,13 @@ public class LoanController {
         model.addAttribute(LOANS, loanService.getAllLoans());
 
         return ALL_LOANS_PATH;
+    }
+
+    @GetMapping(RETURN_LOAN_MAP)
+    public String returnLoan(@PathVariable String id) {
+
+        loanService.returnLoanById(id);
+
+        return REDIRECT_ALL_LOAN;
     }
 }

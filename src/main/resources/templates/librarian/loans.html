@@ -51,7 +51,7 @@
                         <td th:text="${loan.dateOfLoan}">Data wypożyczenia</td> 
                         <td th:text="${loan.dateOfReturn}">Data zwrotu</td>
                         <td>
-                            <a href="" class="button">Zwróć wypożyczenie</a>
+                            <a th:href="@{'/return/loan/' + ${loan.id}}" class="button">Zwróć wypożyczenie</a>
                         </td>
                     </tr>
                 </tbody>

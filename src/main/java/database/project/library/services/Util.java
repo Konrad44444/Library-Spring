@@ -11,6 +11,7 @@ public class Util {
     public static final String UNAVAILABLE = "Wypożyczona"; 
     public static final String NO_ACTIVE_USER = "Active user not found! Login first.";
     public static final String NO_BASKET = "Użytkownik nie posiada koszyka!";
+    public static final String NO_LOAN_FOUND = "Loan not found! Check id";
 
 
     public static boolean isNumeric(String s) {

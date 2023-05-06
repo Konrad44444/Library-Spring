@@ -8,4 +8,5 @@ import database.project.library.model.Loan;
 public interface LoanService {
     List<LoanCommand> getAllCurrentUserLoans();
     List<Loan> getAllLoans();
+    void returnLoanById(String id);
 }
