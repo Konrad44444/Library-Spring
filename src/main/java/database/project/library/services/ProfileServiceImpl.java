@@ -35,5 +35,29 @@ public class ProfileServiceImpl implements ProfileService {
             throw new RuntimeException(Util.NO_ACTIVE_USER);
 
     }
- 
+
+
+    @Override
+    public void saveEditedUserCommand(UserCommand userCommand) {
+
+        Optional<User> userOptional = loginService.getCurrentUser();
+
+        if(userOptional.isPresent()) {
+            
+            User user = userOptional.get();
+
+            // save changes to user
+            user.setLogin(userCommand.getLogin());
+            user.setPassword(userCommand.getPassword());
+            user.setFirstName(userCommand.getFirstName());
+            user.setLastName(userCommand.getLastName());
+
+            userRepository.save(user);
+
+        } else 
+            throw new RuntimeException(Util.NO_ACTIVE_USER);
+
+        
+    }
+
 }

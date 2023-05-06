@@ -24,6 +24,7 @@
 
             <h2>Hasło</h2>
             <h3 id="password" th:text="${user.password}"></h3>
+            <!-- TODO: hide password and show it after button click -->
 
             <h2>Imię</h2>
             <h3 th:text="${user.firstName}"></h3>
@@ -31,7 +32,7 @@
             <h2>Nazwisko</h2>
             <h3 th:text="${user.lastName}"></h3>
 
-            <a th:href="/edit/profile" class="button">Edytuj dane</a>
+            <a th:href="@{/edit/profile}" class="button">Edytuj dane</a>
 
         </div>
 
