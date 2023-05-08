@@ -19,6 +19,7 @@ public class BasketController {
     private static final String BOOKS = "books";
     private static final String MESSAGE = "message";
     private static final String EMPTY_BASKET = "Twój koszyk jest pusty.";
+    private static final String BASKET ="Twój koszyk";
     private static final String DELETE_FROM_BAKSET_MAP = "/deletefrombasket/{id}";
     private static final String REDIRECT_SHOW_BASKET = "redirect:" + SHOW_BASKET_MAP;
     private static final String MAKE_LOAN_MAP = "/makeloan";
@@ -45,6 +46,8 @@ public class BasketController {
 
         if(books.isEmpty()) 
             model.addAttribute(MESSAGE, EMPTY_BASKET);
+        else 
+            model.addAttribute(MESSAGE, BASKET);
 
         model.addAttribute(BOOKS, books);
 

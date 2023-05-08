@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteka - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{styles/all.css}">
+    <link rel="stylesheet" th:href="@{styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{styles/page/table.css}">
 </head>
 <body>
     <div class="container">
@@ -21,8 +25,8 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <div class="book-list">
-            <table class="books-table">
+        <div class="main">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Tytuł</th>
@@ -39,11 +43,11 @@
                         <td th:text="${book.title}">tytul</td>
                         <td th:text="${book.author.getFirstName()} + ' ' + ${book.author.getLastName()}">autor</td>
                         <td th:text="${book.category.getName()}">kategorie</td>
-                        <td th:text="${book.available}">(nie)dostępna</td> 
-                        <td>
+                        <td th:text="${book.available}" class="td-center">(nie)dostępna</td> 
+                        <td class="td-center">
                             <a th:href="@{'/edit/book/' + ${book.id}}" class="button">Edytuj</a>
                         </td>
-                        <td>
+                        <td class="td-center">
                             <a th:href="@{'/delete/book/' + ${book.id}}" class="button">Usuń</a>
                         </td>
                     </tr>

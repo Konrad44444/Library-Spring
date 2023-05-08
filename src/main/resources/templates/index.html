@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteka</title>
+
+    <link rel="stylesheet" th:href="@{styles/all.css}">
+    <link rel="stylesheet" th:href="@{styles/forms.css}">
+    <link rel="stylesheet" th:href="@{styles/login/login.css}">
 </head>
 <body>
     <div class="container">
@@ -24,10 +28,10 @@
 
                 <div class="form-body">
                     <label>Login </label>
-                    <input type="text" th:field="*{login}"> <br>
+                    <input type="text" th:field="*{login}" autocomplete="off" required> <br>
 
                     <label>Hasło </label>
-                    <input type="password" th:field="*{password}"> <br>
+                    <input type="password" th:field="*{password}" required> <br>
                 </div>
 
                 <div class="form-foot">

@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autorzy - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{styles/all.css}">
+    <link rel="stylesheet" th:href="@{styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{styles/page/table.css}">
 </head>
 <body>
     <div class="container">
@@ -21,8 +25,8 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <div class="book-list">
-            <table class="books-table">
+        <div class="main">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>Imie</th>
@@ -36,7 +40,7 @@
                     <tr th:each="author : ${authorsList}">
                         <td th:text="${author.firstName}">imie</td>
                         <td th:text="${author.lastName}">nazwisko</td>
-                        <td>
+                        <td class="td-center">
                             <a th:href="@{'/edit/author/' + ${author.id}}" class="button">Edytuj</a>
                         </td>
                     </tr>

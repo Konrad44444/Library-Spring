@@ -43,14 +43,14 @@ public class BootstrapData implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         //deleting and saving data for debug purposes
-        basketRepository.deleteAll();
-        bookRepository.deleteAll();
-        authorRepository.deleteAll();
-        userRepository.deleteAll();
-        activeRepository.deleteAll();
-        //loanRepository.deleteAll();
-        loadBooksAndAuthors();
-        loadUsers();
+        // basketRepository.deleteAll();
+        // bookRepository.deleteAll();
+        // authorRepository.deleteAll();
+        // userRepository.deleteAll();
+        // activeRepository.deleteAll();
+        // //loanRepository.deleteAll();
+        // loadBooksAndAuthors();
+        // loadUsers();
 
         System.out.println("--- Books, Authors and Users data loaded. ---");
         

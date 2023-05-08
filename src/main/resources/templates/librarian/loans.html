@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wypożyczenia - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{styles/all.css}">
+    <link rel="stylesheet" th:href="@{styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{styles/page/table.css}">
 </head>
 <body>
     <div class="container">
@@ -21,16 +25,16 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <div class="book-list">
+        <div class="main basket">
 
             <h2>Wszystkie wypożyczenia</h2>
 
-            <table class="books-table">
+            <table class="table">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Login</th>
-                        <th>Imię i nazwisko</th>s
+                        <th>Imię i nazwisko</th>
                         <th>Książki</th>
                         <th>Data wypożyczenia</th>
                         <th>Data zwrotu</th>
@@ -51,7 +55,7 @@
                         <td th:text="${loan.dateOfLoan}">Data wypożyczenia</td> 
                         <td th:text="${loan.dateOfReturn}">Data zwrotu</td>
                         <td>
-                            <a th:href="@{'/return/loan/' + ${loan.id}}" class="button">Zwróć wypożyczenie</a>
+                            <a th:href="@{'/return/loan/' + ${loan.id}}" class="button td-center">Zwróć wypożyczenie</a>
                         </td>
                     </tr>
                 </tbody>

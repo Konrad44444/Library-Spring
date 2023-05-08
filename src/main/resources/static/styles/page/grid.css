@@ -1,0 +1,48 @@
+.header {
+    position: sticky;
+    width: 100vw;
+    height: 10vh;
+    background-color:lightgray;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.main {
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.footer {
+    position: sticky;
+    width: 100vw;
+    height: 10vh;
+    background-color:lightgray;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.footer h2 {
+    font-size: 14px;
+}
+
+.basket {
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.basket h2 {
+    margin-top: 1%;
+    font-size: 34px;
+}
+
+ul li {
+    list-style: none;
+}
