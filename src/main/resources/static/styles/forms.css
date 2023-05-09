@@ -1,17 +1,25 @@
-input {
+input, select {
     width: 50%;
     height: 30px;
     font-size: 17px;
     border: none;
     border-bottom: 1px solid darkslategray;
-    border-radius: 2px;
-    margin: 5px 0px;
+    border-radius: 4px;
+    margin: 10px 0px;
     transition: all 0.3s ease-in-out;
+    background-color: rgb(237, 237, 237);
 }
 
 input:hover, input:focus, input:active, input:valid {
     outline: none;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+select:hover, select:active, select:valid, select:focus {
+    outline: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-bottom: 1px solid white;
 }
 
 button {
@@ -32,12 +40,6 @@ button:hover {
 
 label {
     font-size: 20px;
-}
-
-h2 {
-    text-align: center;
-    font-size: 40px;
-    color:darkslategrey;
 }
 
 form {
@@ -62,4 +64,10 @@ form {
     align-items: center;
     flex-direction: row;
     width: 40%;
+    margin-bottom: 1%;
+}
+
+hr {
+    width: 50%;
+    height: 1px;
 }

@@ -1,5 +1,6 @@
 .header {
     position: sticky;
+    top:0px;
     width: 100vw;
     height: 10vh;
     background-color:lightgray;
@@ -10,15 +11,27 @@
 }
 
 .main {
-    height: 80vh;
+    min-height: 80vh;
     width: 100vw;
     display: flex;
     justify-content: center;
     align-items: start;
+    top: 10vh;
+}
+
+.main-profile {
+    min-height: 80vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 10vh;
+    flex-direction: column;
 }
 
 .footer {
     position: sticky;
+    bottom: 0px;
     width: 100vw;
     height: 10vh;
     background-color:lightgray;

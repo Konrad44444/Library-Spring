@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/all.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/forms.css}">
 </head>
 <body>
     <div class="container">
@@ -21,29 +25,35 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <div class="content">
-            <h1>Edytuj swój profil</h1>
-
+        <div class="main">
+            
             <form th:action="@{/editprofile}" method="post" th:object="${user}">
-                <label>Login </label>
-                <input type="text" th:field="*{login}"> <br>
+                <div class="form-head">
+                    <h1>Edytuj swój profil</h1>
+                    <br><br>
+                </div>
+
+                <div class="form-body">
+                    <label>Login </label>
+                    <input type="text" th:field="*{login}"> <br>
+                    
+                    <label>Hasło </label>
+                    <input type="text" th:field="*{password}"> <br>
+                    <!-- has to be text because it is empty string when type is password -->
+    
+                    <label>Imię </label>
+                    <input type="text" th:field="*{firstName}"> <br>
+    
+                    <label>Nazwisko </label>
+                    <input type="text" th:field="*{lastName}"> <br>
+                </div>
                 
-                <label>Hasło </label>
-                <input type="text" th:field="*{password}"> <br>
-                <!-- has to be text because it is empty string when type is password -->
-
-                <label>Imię </label>
-                <input type="text" th:field="*{firstName}"> <br>
-
-                <label>Nazwisko </label>
-                <input type="text" th:field="*{lastName}"> <br>
-
-                <button type="submit">Zatwierdź</button>
-                <a th:href="@{/profile}" class="button">Anuluj</a>
-
+                <div class="form-foot">
+                    <button type="submit">Zatwierdź</button>
+                    <a th:href="@{/profile}" class="button">Anuluj</a>
+                </div>
             </form>
-
-
+            
         </div>
 
         <div class="footer">

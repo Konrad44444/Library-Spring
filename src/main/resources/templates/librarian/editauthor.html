@@ -8,6 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edytuj autora - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/all.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/forms.css}">
+
 </head>
 <body>
     <div class="container">
@@ -21,25 +26,33 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Edytowanie autora</h1>
-        <hr>
 
-        <form th:action="@{/editauthor}" th:object="${author}" method="post">
-            <input type="hidden" name="" th:field="*{id}">
-            
-            <label>Imię </label>
-            <input type="text" th:field="*{firstName}"> <br>
-
-            <label>Nazwisko </label>
-            <input type="text" th:field="*{lastName}"> <br>
-
-
-            <button type="submit">Zapisz</button>
-            <a th:href="@{/authors}" class="button">Anuluj</a>
-
-        </form>
-       
-
+        <div class="main">
+            <form th:action="@{/editauthor}" th:object="${author}" method="post">
+                <div class="form-head">
+                    <br>
+                    <h1>Edytowanie autora</h1>
+                </div>
+                
+                <div class="form-body">
+                    <br><br>
+                    <input type="hidden" name="" th:field="*{id}">
+                    
+                    <label>Imię </label>
+                    <input type="text" th:field="*{firstName}"> <br>
+        
+                    <label>Nazwisko </label>
+                    <input type="text" th:field="*{lastName}"> <br>
+                </div>
+    
+                <div class="form-foot">
+                    <button type="submit">Zapisz</button>
+                    <a th:href="@{/authors}" class="button">Anuluj</a>
+                </div>
+    
+            </form>
+        </div>
+        
         <div class="footer">
             <h2 class="copyright">Copyright © 2023 Konrad Warzecha</h2>
         </div>

@@ -8,6 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj książkę - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{styles/all.css}">
+    <link rel="stylesheet" th:href="@{styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{styles/forms.css}">
+
 </head>
 <body>
     <div class="container">
@@ -21,58 +26,71 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Dodawanie nowej książki</h1>
+        <div class="main">
 
-        <h4 th:text="${message}"></h4>
-
-        <form th:action="@{/save}" th:object="${book}" method="post">
-            <input type="hidden" name="" th:field="*{id}">
             
-            <label>Tytuł </label>
-            <input type="text" th:field="*{title}"> <br>
-
-            <hr>
-
-            <h3>Dodaj nowego autora</h3>
-            <input th:field="${author.id}" type="hidden">
-            <label>Imię </label>
-            <input type="text" th:field="${author.firstName}"> <br>
-            <label>Nazwisko </label>
-            <input type="text" th:field="${author.lastName}"> <br>
-
-            <h3>Lub wybierz istniejącego</h3>
-            <label>Autor </label>
-            <select th:field="*{author.id}">
-                <option th:each="aut: ${authorList}"
-                    th:value="${aut.id}"
-                    th:selected="${aut.id.equals(book.author.id)}"
-                    th:text="${aut.firstName} + ' ' + ${aut.lastName}">author</option>
-            </select>
             
-            <hr>
+            
+            <h4 th:text="${message}"></h4>
+            
+            <form th:action="@{/save}" th:object="${book}" method="post">
 
-            <h3>Dodaj nową kategorię</h3>
-            <label>Kategoria </label>
-            <input type="hidden" th:field="${category.id}">
-            <input type="text" th:field="${category.name}"> <br>
+                <div class="form-head">
+                    <h1>Dodawanie nowej książki</h1>
+                </div>
 
-            <h3>Lub wybierz istniejącą</h3>
-            <label>Kategoria </label>
-            <select th:field="*{category.id}">
-                <option th:each="cat : ${categoriesList}"
-                    th:value="${cat.id}"
-                    th:selected="${cat.id.equals(book.category.id)}"
-                    th:text="${cat.name}">category</option>
-            </select>
+                <div class="form-body">
 
-            <br>
+                    
+                    <input type="hidden" name="" th:field="*{id}">
+                        
+                    <label>Tytuł </label>
+                    <input type="text" th:field="*{title}" required> <br>
 
-            <button type="submit">Zapisz</button>
-            <a th:href="@{/mainview}" class="button">Anuluj</a>
+                    <hr>
 
-        </form>
-       
-
+                    <h3>Dodaj nowego autora</h3>
+                    <input th:field="${author.id}" type="hidden">
+                    <label>Imię </label>
+                    <input type="text" th:field="${author.firstName}"> <br>
+                    <label>Nazwisko </label>
+                    <input type="text" th:field="${author.lastName}"> <br>
+                    
+                    <h3>Lub wybierz istniejącego</h3>
+                    <select th:field="*{author.id}">
+                        <option th:each="aut: ${authorList}"
+                        th:value="${aut.id}"
+                        th:selected="${aut.id.equals(book.author.id)}"
+                        th:text="${aut.firstName} + ' ' + ${aut.lastName}">author</option>
+                    </select>
+                    
+                    <br><hr>
+                    
+                    <h3>Dodaj nową kategorię</h3>
+                    <label>Kategoria </label>
+                    <input type="hidden" th:field="${category.id}">
+                    <input type="text" th:field="${category.name}"> <br>
+                    
+                    <h3>Lub wybierz istniejącą</h3>
+                    <select th:field="*{category.id}">
+                        <option th:each="cat : ${categoriesList}"
+                        th:value="${cat.id}"
+                        th:selected="${cat.id.equals(book.category.id)}"
+                        th:text="${cat.name}">category</option>
+                    </select>
+                    
+                    <br><br>
+                </div>
+                
+                <div class="form-foot">
+                    <button type="submit">Zapisz</button>
+                    <a th:href="@{/mainview}" class="button">Anuluj</a>
+                </div>
+                
+            </form>
+        
+        </div>
+        
         <div class="footer">
             <h2 class="copyright">Copyright © 2023 Konrad Warzecha</h2>
         </div>

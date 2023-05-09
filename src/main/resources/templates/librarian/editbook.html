@@ -8,6 +8,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edytuj książkę - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/all.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/forms.css}">
+
 </head>
 <body>
     <div class="container">
@@ -21,46 +26,49 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Edytowanie książki</h1>
-        <hr>
+        <div class="main">
+            <form th:action="@{/edit}" th:object="${book}" method="post">
+                <div class="form-head">
+                    <br>
+                    <h1>Edytowanie książki</h1>
+                    <br><br>
+                </div>
+                
+                <div class="form-body">
+                    <input type="hidden" name="" th:field="*{id}">
+                    
+                    <label>Tytuł </label>
+                    <input type="text" th:field="*{title}"> <br>
 
-        <form th:action="@{/edit}" th:object="${book}" method="post">
-            <input type="hidden" name="" th:field="*{id}">
-            
-            <label>Tytuł </label>
-            <input type="text" th:field="*{title}"> <br>
+        
+                    <h3>Zmień autora</h3>
+        
+                    <select th:field="*{author.id}">
+                        <option th:each="aut: ${authorList}"
+                            th:value="${aut.id}"
+                            th:selected="${aut.id.equals(book.author.id)}"
+                            th:text="${aut.firstName} + ' ' + ${aut.lastName}">author</option>
+                    </select>
+    
+        
+                    <h3>Zmień kategorię</h3>
+        
+                    <select th:field="*{category.id}">
+                        <option th:each="cat : ${categoriesList}"
+                            th:value="${cat.id}"
+                            th:selected="${cat.id.equals(book.category.id)}"
+                            th:text="${cat.name}">category</option>
+                    </select>
+                    <br><br>
+                </div>
 
-            <hr>
+                <div class="form-foot">
+                    <button type="submit">Zapisz</button>
+                    <a th:href="@{/mainview}" class="button">Anuluj</a>
+                </div>
+            </form>
 
-            <h3>Zmień autora</h3>
-
-            <label>Autor </label>
-            <select th:field="*{author.id}">
-                <option th:each="aut: ${authorList}"
-                    th:value="${aut.id}"
-                    th:selected="${aut.id.equals(book.author.id)}"
-                    th:text="${aut.firstName} + ' ' + ${aut.lastName}">author</option>
-            </select>
-            
-            <hr>
-
-            <h3>Zmień kategorię</h3>
-
-            <label>Kategoria </label>
-            <select th:field="*{category.id}">
-                <option th:each="cat : ${categoriesList}"
-                    th:value="${cat.id}"
-                    th:selected="${cat.id.equals(book.category.id)}"
-                    th:text="${cat.name}">category</option>
-            </select>
-
-            <br>
-
-            <button type="submit">Zapisz</button>
-            <a th:href="@{/mainview}" class="button">Anuluj</a>
-
-        </form>
-       
+        </div>
 
         <div class="footer">
             <h2 class="copyright">Copyright © 2023 Konrad Warzecha</h2>

@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edytuj kategorię - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/all.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/page/grid.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/forms.css}">
 </head>
 <body>
     <div class="container">
@@ -21,20 +25,27 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <h1>Edytowanie kategorii</h1>
-        <hr>
-
-        <form th:action="@{/editcategory}" th:object="${category}" method="post">
-            <input type="hidden" name="" th:field="*{id}">
-            
-            <label>Kategoria </label>
-            <input type="text" th:field="*{name}"> <br>
-
-
-            <button type="submit">Zapisz</button>
-            <a th:href="@{/categories}" class="button">Anuluj</a>
-
-        </form>
+        <div class="main">
+            <form th:action="@{/editcategory}" th:object="${category}" method="post">
+                <div class="form-head">
+                    <br>
+                    <h1>Edytowanie kategorii</h1>
+                    <br><br>
+                </div>
+                
+                <div class="form-body">
+                    <input type="hidden" name="" th:field="*{id}">
+                    
+                    <label>Kategoria </label>
+                    <input type="text" th:field="*{name}"> <br>
+                </div>
+    
+                <div class="form-foot">
+                    <button type="submit">Zapisz</button>
+                    <a th:href="@{/categories}" class="button">Anuluj</a>
+                </div>
+            </form>
+        </div>
        
 
         <div class="footer">

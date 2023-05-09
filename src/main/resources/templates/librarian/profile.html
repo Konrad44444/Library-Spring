@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil - bibliotekarz</title>
+
+    <link rel="stylesheet" th:href="@{styles/all.css}">
+    <link rel="stylesheet" th:href="@{styles/page/grid.css}">
+
 </head>
 <body>
     <div class="container">
@@ -21,7 +25,7 @@
             <a th:href="@{/logout}" class="button">Wyloguj się</a>
         </div>
 
-        <div class="content">
+        <div class="main-profile">
             <h1>Profil bibliotekarza</h1>
 
             <h2>Login</h2>
@@ -37,10 +41,13 @@
             <h2>Nazwisko</h2>
             <h3 th:text="${user.lastName}"></h3>
 
+            <br><br>
+
             <a th:href="@{/edit/profile}" class="button">Edytuj dane</a>
-
+            
         </div>
-
+        
+        
         <div class="footer">
             <h2 class="copyright">Copyright © 2023 Konrad Warzecha</h2>
         </div>
