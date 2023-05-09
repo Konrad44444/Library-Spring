@@ -38,8 +38,8 @@
                         <td th:text="${book.author.getFirstName()} + ' ' + ${book.author.getLastName()}">autor</td>
                         <td th:text="${book.category.getName()}">kategorie</td>
                         <td th:text="${book.available}" class="td-center">(nie)dostępna</td> 
-                        <td class="td-center">
-                            <a th:href="@{'/addtobasket/' + ${book.id}}" class="button">Dodaj do koszyka</a>
+                        <td class="td-center" >
+                            <a th:href="@{'/addtobasket/' + ${book.id}}" class="button" th:if="${book.available == 'Dostepna'}">Dodaj do koszyka</a>
                             <!-- TODO: disable button is status is 'zarezerwowana' or 'wypożyczona' -->
                         </td>
                     </tr>
