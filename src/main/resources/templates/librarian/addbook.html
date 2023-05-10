@@ -33,7 +33,7 @@
             
             <h4 th:text="${message}"></h4>
             
-            <form th:action="@{/save}" th:object="${book}" method="post">
+            <form th:action="@{/save}" th:object="${book}" method="post" autocomplete="off">
 
                 <div class="form-head">
                     <h1>Dodawanie nowej książki</h1>

@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteka</title>
 
-    <link rel="stylesheet" th:href="@{styles/all.css}">
-    <link rel="stylesheet" th:href="@{styles/forms.css}">
-    <link rel="stylesheet" th:href="@{styles/login/login.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/all.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/forms.css}">
+    <link rel="stylesheet" th:href="@{http://localhost:8081/styles/login/login.css}">
 </head>
 <body>
     <div class="container">
@@ -21,7 +21,7 @@
         
         <div class="login">
             
-            <form th:object="${user}" th:action="@{/login}" method="post">
+            <form th:object="${user}" th:action="@{/login}" method="post" autocomplete="off">
                 <div class="form-head">
                     <h2>Logowanie</h2>
                 </div>
